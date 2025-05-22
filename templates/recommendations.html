@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recommended Destinations - Uttarakhand Tourism</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-r from-green-200 via-green-100 to-green-200 min-h-screen py-12 px-4 flex justify-center">
+  <div class="max-w-4xl w-full bg-white rounded-3xl shadow-xl p-8 sm:p-12">
+    <h1 class="text-4xl font-extrabold text-green-700 mb-10 text-center tracking-tight">
+      Your Recommended Destinations
+    </h1>
+
+    {% if recommendations and recommendations|length > 0 %}
+      <div class="space-y-8">
+        {% for place in recommendations %}
+          <div class="border border-green-300 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 bg-green-50">
+            <h2 class="text-2xl font-bold text-green-800 mb-2">{{ place.Name }}</h2>
+            <p class="text-green-700 font-semibold mb-1">
+              <span class="italic">Type:</span> {{ place.Type }}
+            </p>
+            <p class="text-green-700 font-semibold mb-1">
+              <span class="italic">Best Season:</span> {{ place.Best_Season | capitalize }}
+            </p>
+            <p class="text-green-700 font-semibold mb-1">
+              <span class="italic">Average Cost:</span> ₹{{ place.Avg_Cost }}
+            </p>
+            <p class="text-green-700 font-semibold">
+              <span class="italic">Typical Visit Duration:</span> {{ place.Typical_Duration }} day{{ "s" if place.Typical_Duration > 1 else "" }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-lg text-red-600 font-semibold">
+        Sorry, no destinations matched your criteria. Please try different preferences.
+      </p>
+    {% endif %}
+
+    <div class="mt-10 text-center">
+      <a href="/" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-green-300 transition-colors">
+        Back to Search
+      </a>
+    </div>
+  </div>
+</body>
+</html>
