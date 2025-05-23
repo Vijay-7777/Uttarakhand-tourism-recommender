@@ -1,34 +1,71 @@
-Name,Type,Latitude,Longitude,Best_Season,Avg_Cost,Typical_Duration
-Nainital,Hill Station,29.3803,79.4636,Summer,8000,3
-Mussoorie,Hill Station,30.4599,78.0642,Summer,9000,3
-Rishikesh,Spiritual / Adventure,30.0869,78.2676,All Year,6000,2
-Haridwar,Spiritual,29.9457,78.1642,All Year,5000,1
-Jim Corbett National Park,Wildlife,29.53,78.7747,Winter,12000,2
-Auli,Ski Resort,30.5286,79.5666,Winter,15000,3
-Valley of Flowers,Trekking / Nature,30.728,79.6054,Summer,10000,4
-Badrinath,Pilgrimage,30.7433,79.493,Summer,7000,2
-Kedarnath,Pilgrimage,30.7352,79.0669,Summer,7000,2
-Chopta,Hill Station / Trekking,30.4872,79.223,Summer,8500,3
-Lansdowne,Hill Station,29.8406,78.6842,Summer,7000,2
-Dhanaulti,Hill Station,30.4033,78.24,Summer,6500,2
-Ranikhet,Hill Station,29.6424,79.4322,Summer,7500,3
-Almora,Hill Station / Cultural,29.5942,79.6597,All Year,7000,2
-Pithoragarh,Hill Station / Scenic,29.5803,80.2184,Summer,8000,3
-Mukteshwar,Hill Station,29.4722,79.6471,Summer,7000,2
-Joshimath,Gateway / Spiritual,30.5552,79.5642,All Year,8000,2
-Hemkund Sahib,Pilgrimage / Trekking,30.6928,79.605,Summer,9000,3
-Binsar,Wildlife / Nature,29.6262,79.615,Summer,7500,2
-Devprayag,Pilgrimage / Confluence,30.146,78.598,All Year,6000,1
-Kanatal,Hill Station,30.405,78.321,Summer,7000,2
-Chamba,Hill Station / Cultural,30.8167,79.4097,All Year,6500,2
-Munsiyari,Hill Station / Trekking,30.1333,80.1167,Summer,9000,4
-Nag Tibba,Trekking,30.3919,78.4923,All Year,6000,2
-Corbett Falls,Waterfall / Nature,29.5416,79.0177,Summer,6500,1
-Har Ki Dun,Trekking,31.0207,78.2777,Summer,10000,5
-Rudraprayag,Pilgrimage / Spiritual,30.2915,79.0312,All Year,6000,1
-Sitlakhet,Hill Station / Nature,29.8869,79.4907,Summer,7000,2
-Chakrata,Hill Station / Adventure,30.9569,77.8183,Summer,7500,3
-Tehri Dam,Lake / Scenic,30.2971,78.4983,All Year,6500,1
-Pauri Garhwal,Hill Station,30.1292,78.7781,Summer,7000,2
-Alaknanda River,River / Spiritual,30.209,78.916,All Year,5000,1
-
+Name,type,season,cost,duration,Image_URL,Description,Latitude,Longitude
+Nainital,Hill Station,Summer,8000,3,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather.",29.3803,79.4636
+Mussoorie,Hill Station,Summer,9000,3,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm.",30.4599,78.0642
+Rishikesh,Spiritual / Adventure,Winter,7000,2,rishikesh.jpg,"Famous for yoga, meditation, and adventure sports like rafting on the Ganges River.",30.0869,78.2676
+Haridwar,Spiritual,Winter,6000,2,haridwar.jpg,"An ancient city on the banks of the Ganges, known for Ganga Aarti and pilgrimage significance.",29.9457,78.1642
+Jim Corbett National Park,Wildlife,Winter,11000,2,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants.",29.53,78.7747
+Auli,Ski Resort,Winter,14000,4,auli.jpg,A skiing paradise in the Himalayas offering snowy slopes and panoramic views.,30.5286,79.5666
+Valley of Flowers,Trekking / Nature,Monsoon,10000,5,valley_of_flowers.jpg,A UNESCO World Heritage site famous for its endemic alpine flowers and lush meadows.,30.728,79.6054
+Badrinath,Pilgrimage,Summer,12000,3,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas.,30.7433,79.493
+Kedarnath,Pilgrimage,Summer,15000,4,kedarnath.jpg,"A revered shrine dedicated to Lord Shiva, nestled amidst snow-covered peaks.",30.7352,79.0669
+Chopta,Hill Station / Trekking,Autumn,8000,3,chopta.jpg,"Known as the 'Mini Switzerland' of India, perfect for trekking and tranquil landscapes.",30.4872,79.223
+Jim Corbett National Park,  Adventure,Summer,19923,4,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants. ",29.8406,78.6842
+Jim Corbett National Park , Trekking,Winter,19980,3,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants. ",30.4033,78.24
+Auli , Trekking,Winter,18938,2,auli.jpg,A skiing paradise in the Himalayas offering snowy slopes and panoramic views. ,29.6424,79.4322
+Haridwar , Pilgrimage,Winter,11616,5,haridwar.jpg,"An ancient city on the banks of the Ganges, known for Ganga Aarti and pilgrimage significance. ",29.5942,79.6597
+Jim Corbett National Park , Wildlife,Winter,12192,6,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants. ",29.5803,80.2184
+Rishikesh , Nature,Summer,14000,3,rishikesh.jpg,"Famous for yoga, meditation, and adventure sports like rafting on the Ganges River. ",29.4722,79.6471
+Kedarnath,  Ski Resort,Monsoon,11271,4,kedarnath.jpg,"A revered shrine dedicated to Lord Shiva, nestled amidst snow-covered peaks. ",30.5552,79.5642
+Chopta  ,Nature,Monsoon,16781,2,chopta.jpg,"Known as the 'Mini Switzerland' of India, perfect for trekking and tranquil landscapes. ",30.6928,79.605
+Haridwar , Ski Resort,Summer,18890,3,haridwar.jpg,"An ancient city on the banks of the Ganges, known for Ganga Aarti and pilgrimage significance. ",29.6262,79.615
+Mussoorie  ,Cultural,Winter,7775,6,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm. ",30.146,78.598
+Badrinath  ,Spiritual,Winter,18396,3,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas. ,30.3896,78.4806
+Nainital  ,Trekking,Monsoon,8156,6,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather.",30.3896,78.4752
+Mussoorie  ,Cultural,Autumn,8377,4,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm. ",30.7032,77.8637
+Haridwar  ,Hill Station,Monsoon,8337,3,haridwar.jpg,"An ancient city on the banks of the Ganges, known for Ganga Aarti and pilgrimage significance. ",30.7719,78.7596
+Rishikesh  ,Nature,Monsoon,12849,3,rishikesh.jpg,"Famous for yoga, meditation, and adventure sports like rafting on the Ganges River. ",30.9948,78.9398
+Nainital  ,Ski Resort,Winter,19980,3,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",31.0136,78.4601
+Nainital  ,Scenic,Summer,8046,3,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",30.0692,80.2433
+Nainital  ,Nature,Winter,18752,2,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",29.3823,79.5229
+Mussoorie  ,Nature,Autumn,9895,4,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm. ",29.8375,79.6012
+Mussoorie  ,Cultural,Monsoon,12788,3,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm. ",29.8378,80.0092
+Valley of Flowers  ,Ski Resort,Summer,11799,6,valley_of_flowers.jpg,A UNESCO World Heritage site famous for its endemic alpine flowers and lush meadows. ,29.7876,80.0575
+Jim Corbett National Park  ,Scenic,Monsoon,12672,5,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants. ",29.8206,80.2751
+Nainital  ,Adventure,Winter,16126,2,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",29.7763,79.4277
+Jim Corbett National Park  ,Ski Resort,Autumn,13836,3,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants.",29.6402,79.8499
+Mussoorie  ,Pilgrimage,Monsoon,19888,3,mussoorie.jpg,"Popularly called the 'Queen of Hills', Mussoorie offers panoramic views of the Himalayas and colonial charm. ",30.1584,78.9848
+Nainital  ,Cultural,Summer,9800,5,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",29.4235,78.7748
+Jim Corbett National Park  ,Pilgrimage,Summer,13801,4,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants. ",29.3986,79.4812
+Auli  ,Cultural,Monsoon,16966,4,auli.jpg,A skiing paradise in the Himalayas offering snowy slopes and panoramic views.,29.4261,79.5955
+Rishikesh  ,Ski Resort,Winter,17342,3,rishikesh.jpg,"Famous for yoga, meditation, and adventure sports like rafting on the Ganges River.",29.5934,79.4487
+Valley of Flowers  ,Scenic,Monsoon,10998,2,valley_of_flowers.jpg,A UNESCO World Heritage site famous for its endemic alpine flowers and lush meadows. ,29.3449,79.5435
+Badrinath  ,Adventure,Autumn,9838,5,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas. ,29.3464,79.5401
+Jim Corbett National Park  ,Ski Resort,Winter,9091,5,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants.",29.4017,79.4327
+Nainital  ,Cultural,Summer,6543,4,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather.",29.6691,79.6088
+Nainital  ,Hill Station,Monsoon,10698,3,nainital.jpg,"A beautiful hill station known for its scenic lake, colonial architecture, and pleasant weather. ",29.9934,79.5654
+Badrinath  ,Cultural,Monsoon,15408,3,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas.,29.3259,79.5502
+Jim Corbett National Park  ,Scenic,Monsoon,10111,2,jim_corbett_national_park.jpg,"India’s oldest national park, rich in flora and fauna, especially Bengal tigers and elephants.",30.5005,79.2181
+Badrinath  ,Spiritual,Monsoon,16498,6,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas.,30.2844,78.9807
+Haridwar  ,Ski Resort,Winter,15758,5,haridwar.jpg,"An ancient city on the banks of the Ganges, known for Ganga Aarti and pilgrimage significance. ",30.7156,79.6091
+Auli  ,Wildlife,Monsoon,11439,3,auli.jpg,A skiing paradise in the Himalayas offering snowy slopes and panoramic views. ,30.7723,79.4946
+Badrinath  ,Ski Resort,Autumn,6193,6,badrinath.jpg,One of the Char Dham pilgrimage sites dedicated to Lord Vishnu in the Himalayas. ,30.3915,78.3563
+Munsiyari,Hill Station,Summer,9500,4,munsiyari.jpg,"A scenic hill town nestled in the snow-capped Himalayas, perfect for trekking and panoramic views.",30.0686,80.2383
+Pithoragarh,Historical,Autumn,8700,3,pithoragarh.jpg,"Known as 'Little Kashmir', this town offers natural beauty and historical forts in the Himalayan foothills.",29.5833,80.2167
+Lansdowne,Hill Station,Winter,7500,2,lansdowne.jpg,"A serene cantonment town with colonial charm, surrounded by oak and pine forests.",29.8409,78.6842
+Binsar,Nature,Summer,8600,3,binsar.jpg,"A wildlife sanctuary known for its biodiversity and stunning views of Himalayan peaks.",29.6581,79.6333
+Ranikhet,Hill Station,Summer,8800,3,ranikhet.jpg,"A peaceful hill town with lush green meadows, temples, and golf courses.",29.6434,79.4322
+Almora,Cultural,Summer,8100,3,almora.jpg,"A cultural hub in Kumaon, known for its handicrafts, cuisine, and scenic beauty.",29.5942,79.6597
+Kausani,Scenic,Summer,8900,3,kausani.jpg,"Offers a 300 km-wide panoramic view of the Himalayas; ideal for nature lovers and poets.",29.933,79.5976
+Dhanaulti,Hill Station,Autumn,7700,2,dhanaulti.jpg,"A tranquil alternative to Mussoorie, with eco-parks, forest trails, and camping options.",30.4033,78.24
+Tehri Lake,Adventure,Summer,10500,2,tehri_lake.jpg,"An emerging destination for water sports and scenic boat rides at Asia's largest manmade lake.",30.3782,78.4806
+Chaukori,Hill Station,Winter,9100,3,chaukori.jpg,"A hidden gem offering enchanting views of snow-clad peaks and peaceful tea gardens.",29.8375,79.6012
+Pauri,Hill Station,Summer,7400,3,pauri.jpg,"Known for its temples, natural beauty, and sunset views over the Himalayan ranges.",30.1502,78.7819
+Champawat,Historical,Autumn,7900,2,champawat.jpg,"A historic town once capital of the Chand dynasty, surrounded by temples and ancient architecture.",29.3368,80.0997
+Bhimtal,Scenic,Summer,8500,2,bhimtal.jpg,"A picturesque town centered around a serene lake, perfect for boating and lakeside walks.",29.3435,79.5635
+Naukuchiatal,Nature,Summer,8800,2,naukuchiatal.jpg,"Famous for its nine-cornered lake and tranquil ambiance, ideal for birdwatching and kayaking.",29.3393,79.6099
+Mukteshwar,Hill Station,Summer,9200,3,mukteshwar.jpg,"Offers adventure sports, apple orchards, and a 350-year-old Shiva temple.",29.4722,79.6471
+Kalap,Cultural,Summer,11000,5,kalap.jpg,"A remote, sustainable tourism village promoting ancient Garhwali traditions and trekking.",31.0136,78.4601
+Gaumukh,Trekking,Summer,12000,6,gaumukh.jpg,"Source of the Ganges River, reached via a challenging yet spiritual trek from Gangotri.",30.9948,78.9398
+Harsil,Scenic,Autumn,9300,3,harsil.jpg,"A Himalayan hamlet on the way to Gangotri, known for apple orchards and pristine beauty.",30.7363,78.7687
+Mana Village,Cultural,Summer,9500,2,mana_village.jpg,"India’s last village before the Indo-Tibetan border, steeped in mythological significance.",30.7723,79.4946
+Gangotri,Spiritual,Summer,12500,3,gangotri.jpg,"One of the four Char Dham sites, source of River Ganga and a sacred pilgrimage spot.",30.9942,78.9398

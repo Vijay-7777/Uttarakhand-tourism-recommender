@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import pickle
-from scipy.sparse import hstack
+from sklearn.preprocessing import StandardScaler
+from scipy.sparse import hstack, csr_matrix
 
 app = Flask(__name__)
 
-# Load dataset (for showing results info)
-df = pd.read_csv('data/uttarakhand_places.csv')
+# Load dataset and models
+df = pd.read_csv('data/uttarakhand_places_50plus.csv')
 
-# Load saved model and encoders once at startup
 with open('models/model.pkl', 'rb') as f:
     model = pickle.load(f)
 with open('models/tag_binarizer.pkl', 'rb') as f:
@@ -24,33 +24,55 @@ def index():
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
-    # Get and clean user inputs
-    interests = request.form.getlist('interest')  # list from multi-select
-    interests = [i.strip().lower() for i in interests]
-
-    season = request.form['season'].strip().lower()
+    interests = request.form.getlist('interest')
+    season = request.form['season']
     budget = float(request.form['budget'])
     duration = float(request.form['duration'])
 
-    # Transform interests using tag_binarizer
-    interest_vec = tag_binarizer.transform([interests])
+    # Preprocess user input features
+    interests_cleaned = [[i.strip().lower() for i in interests]]
+    interest_features = tag_binarizer.transform(interests_cleaned)
 
-    # Transform season using season_encoder
-    season_vec = season_encoder.transform([[season]])
+    season_feature = season_encoder.transform([[season]])
+    numeric_features = scaler.transform([[budget, duration]])
 
-    # Scale numeric features using scaler
-    num_vec = scaler.transform([[budget, duration]])
+    # Combine features into one sparse matrix
+    X_input = hstack([
+        csr_matrix(interest_features),
+        csr_matrix(season_feature),
+        csr_matrix(numeric_features)
+    ])
 
-    # Combine all features
-    user_features = hstack([interest_vec, season_vec, num_vec])
+    # Find nearest neighbors using the trained model
+    distances, indices = model.kneighbors(X_input)
 
-    # Find nearest neighbors
-    distances, indices = model.kneighbors(user_features, n_neighbors=5)
+    # indices is a 2D array, extract first row (first query)
+    indices_list = indices[0] if indices.shape[0] > 0 else []
 
-    # Get recommended places info
-    recommended_places = df.iloc[indices[0]].to_dict(orient='records')
+    # Defensive: check if indices_list is empty
+    if len(indices_list) == 0:
+        recommended_df = pd.DataFrame()  # no recommendations found
+    else:
+        # Select rows from df corresponding to recommended indices
+        recommended_df = df.iloc[indices_list]
 
-    return render_template('recommendations.html', recommendations=recommended_places)
+    # Apply dynamic filters on recommended_df
+    # Adjust column names according to your CSV
+    filtered_df = recommended_df[
+        (recommended_df['Best_Season'].str.lower() == season.lower()) &
+        (recommended_df['Avg_Cost'] <= budget) &
+        (recommended_df['Typical_Duration'] <= duration)
+    ]
+
+    # If no filtered results, fallback to top 3 recommendations without filters
+    if filtered_df.empty:
+        filtered_df = recommended_df.head(3)
+
+    # Convert final recommendations to dict for template rendering
+    recommendations = filtered_df.to_dict(orient='records')
+
+    return render_template('recommendations.html', recommendations=recommendations)
 
 if __name__ == '__main__':
     app.run(debug=True)
+

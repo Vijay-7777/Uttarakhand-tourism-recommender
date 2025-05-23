@@ -1,49 +1,51 @@
 import pandas as pd
-import numpy as np
+import pickle
 from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder, StandardScaler
 from sklearn.neighbors import NearestNeighbors
-import pickle
-from scipy.sparse import hstack
+from scipy.sparse import hstack, csr_matrix
 
-# Load dataset
+# Load data
 df = pd.read_csv('data/uttarakhand_places.csv')
 
-# Preprocessing
-# 1. Interests (Type) - note: some entries have multiple types separated by '/'
-df['Type'] = df['Type'].str.lower()
-df['Type_list'] = df['Type'].apply(lambda x: [t.strip() for t in x.split('/')])
+# Ensure required columns exist
+required_columns = ['type', 'season', 'cost', 'duration']
+for col in required_columns:
+    if col not in df.columns:
+        raise ValueError(f"Missing required column: '{col}' in dataset")
 
+# Preprocess type (interests)
+df['type'] = df['type'].fillna('').apply(lambda x: [i.strip().lower() for i in x.split(',') if i.strip()])
 tag_binarizer = MultiLabelBinarizer()
-type_features = tag_binarizer.fit_transform(df['Type_list'])
+interest_features = tag_binarizer.fit_transform(df['type'])
 
-# 2. Best_Season - clean and OneHotEncode
-df['Best_Season'] = df['Best_Season'].str.strip().str.lower()  # <-- FIX: normalize case and strip spaces
+# Preprocess season
+season_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+season_features = season_encoder.fit_transform(df[['season']])
 
-season_encoder = OneHotEncoder(sparse_output=True, handle_unknown='ignore')
-season_features = season_encoder.fit_transform(df[['Best_Season']])
-
-# 3. Numeric features: Avg_Cost, Typical_Duration
+# Preprocess numeric values
 scaler = StandardScaler()
-num_features = scaler.fit_transform(df[['Avg_Cost', 'Typical_Duration']])
+numeric_features = scaler.fit_transform(df[['cost', 'duration']])
 
-# Combine all features (sparse hstack)
-X = hstack([type_features, season_features, num_features])
+# Convert to sparse
+interest_features = csr_matrix(interest_features)
+season_features = csr_matrix(season_features)
+numeric_features = csr_matrix(numeric_features)
 
-# Train KNN model
-model = NearestNeighbors(n_neighbors=5, algorithm='auto', metric='euclidean')
+# Combine all features
+X = hstack([interest_features, season_features, numeric_features])
+
+# Fit Nearest Neighbors model
+model = NearestNeighbors(n_neighbors=5, metric='euclidean')
 model.fit(X)
 
 # Save model and encoders
 with open('models/model.pkl', 'wb') as f:
     pickle.dump(model, f)
-
 with open('models/tag_binarizer.pkl', 'wb') as f:
     pickle.dump(tag_binarizer, f)
-
 with open('models/season_encoder.pkl', 'wb') as f:
     pickle.dump(season_encoder, f)
-
 with open('models/scaler.pkl', 'wb') as f:
     pickle.dump(scaler, f)
 
-print("Model and encoders saved successfully.")
+print("Model and preprocessing assets saved successfully.")
