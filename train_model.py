@@ -8,23 +8,23 @@ from scipy.sparse import hstack, csr_matrix
 df = pd.read_csv('data/uttarakhand_places.csv')
 
 # Ensure required columns exist
-required_columns = ['type', 'season', 'cost', 'duration']
+required_columns = ['Type', 'Best_Season', 'Avg_Cost', 'Typical_Duration']
 for col in required_columns:
     if col not in df.columns:
         raise ValueError(f"Missing required column: '{col}' in dataset")
 
 # Preprocess type (interests)
-df['type'] = df['type'].fillna('').apply(lambda x: [i.strip().lower() for i in x.split(',') if i.strip()])
+df['Type'] = df['Type'].fillna('').apply(lambda x: [i.strip().lower() for i in x.split(',') if i.strip()])
 tag_binarizer = MultiLabelBinarizer()
-interest_features = tag_binarizer.fit_transform(df['type'])
+interest_features = tag_binarizer.fit_transform(df['Type'])
 
 # Preprocess season
 season_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-season_features = season_encoder.fit_transform(df[['season']])
+season_features = season_encoder.fit_transform(df[['Best_Season']])
 
 # Preprocess numeric values
 scaler = StandardScaler()
-numeric_features = scaler.fit_transform(df[['cost', 'duration']])
+numeric_features = scaler.fit_transform(df[['Avg_Cost', 'Typical_Duration']])
 
 # Convert to sparse
 interest_features = csr_matrix(interest_features)

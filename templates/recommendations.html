@@ -5,61 +5,157 @@
   <title>Recommended Destinations</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    .destination-image {
+      background: linear-gradient(135deg, #10b981, #059669);
+      position: relative;
+    }
+    .destination-image::before {
+      content: '🏔️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      opacity: 0.7;
+    }
+    .image-loaded::before {
+      display: none;
+    }
+  </style>
 </head>
-<body class="bg-green-50 min-h-screen p-6 flex flex-col items-center">
+<body class="bg-gradient-to-br from-green-50 via-blue-50 to-green-100 min-h-screen p-6 flex flex-col items-center">
   <div class="max-w-7xl w-full">
-    <h1 class="text-4xl font-extrabold text-green-800 mb-8 text-center">
-      Top Destination Matches for You
+    <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 mb-12 text-center">
+      🌟 Your Perfect Destinations 🌟
     </h1>
 
     {% if recommendations %}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for place in recommendations %}
-          <article class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-            <img
-              src="{{ url_for('static', filename='images/' ~ place.Image_URL) }}"
-              alt="{{ place.Name }}"
-              class="w-full h-64 object-cover"
-              loading="lazy"
-              decoding="async"
-            />
+          <article class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+            <div class="destination-image w-full h-64 relative overflow-hidden">
+              <img
+                src="{{ url_for('static', filename='images/' ~ (place.Image_URL or 'default.jpg')) }}"
+                alt="{{ place.Name }}"
+                class="w-full h-full object-cover transition-opacity duration-300"
+                loading="lazy"
+                decoding="async"
+                onload="this.parentElement.classList.add('image-loaded'); console.log('Image loaded:', this.src);"
+                onerror="console.log('Image failed to load:', this.src); this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #10b981, #059669)'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 text-white">
+                <h2 class="text-2xl font-bold drop-shadow-lg">{{ place.Name }}</h2>
+              </div>
+              <!-- Debug info (remove in production) -->
+              <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs p-1 rounded">
+                {{ place.Image_URL or 'No image' }}
+              </div>
+            </div>
 
-            <div class="p-5 flex flex-col flex-grow">
-              <h2 class="text-2xl font-semibold text-green-700 mb-2">{{ place.Name }}</h2>
+            <div class="p-6 flex flex-col flex-grow">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="bg-green-50 p-3 rounded-xl">
+                  <div class="text-xs text-green-600 font-semibold uppercase tracking-wide">Type</div>
+                  <div class="text-green-800 font-bold">{{ place.Type or 'N/A' }}</div>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-xl">
+                  <div class="text-xs text-blue-600 font-semibold uppercase tracking-wide">Season</div>
+                  <div class="text-blue-800 font-bold">{{ place.Best_Season or 'N/A' }}</div>
+                </div>
+                <div class="bg-yellow-50 p-3 rounded-xl">
+                  <div class="text-xs text-yellow-600 font-semibold uppercase tracking-wide">Cost</div>
+                  <div class="text-yellow-800 font-bold">₹{{ place.Avg_Cost or 'N/A' }}</div>
+                </div>
+                <div class="bg-purple-50 p-3 rounded-xl">
+                  <div class="text-xs text-purple-600 font-semibold uppercase tracking-wide">Duration</div>
+                  <div class="text-purple-800 font-bold">{{ place.Typical_Duration or 'N/A' }} days</div>
+                </div>
+              </div>
 
-              <ul class="text-sm text-gray-700 space-y-1 mb-4">
-                <li><strong>Type:</strong> {{ place.Type }}</li>
-                <li><strong>Best Season:</strong> {{ place.Best_Season }}</li>
-                <li><strong>Avg. Cost:</strong> ₹{{ place.Avg_Cost }}</li>
-                <li><strong>Duration:</strong> {{ place.Typical_Duration }} days</li>
-              </ul>
+              <p class="text-gray-700 leading-relaxed flex-grow mb-6">
+                {{ place.Description or 'A beautiful destination in Uttarakhand waiting to be explored.' }}
+              </p>
 
-              <p class="text-gray-800 flex-grow">{{ place.Description }}</p>
-
-              <a
-                href="https://www.google.com/maps/search/?api=1&query={{ place.Latitude }},{{ place.Longitude }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white text-center font-semibold py-2 rounded-lg transition-colors"
-              >
-                View on Map
-              </a>
+              <div class="flex gap-3">
+                {% if place.Latitude and place.Longitude %}
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query={{ place.Latitude }},{{ place.Longitude }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white text-center font-semibold py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  📍 View on Map
+                </a>
+                {% endif %}
+                <button
+                  onclick="showMoreInfo('{{ place.Name }}', '{{ place.Description or '' }}', '{{ place.Type or '' }}', '{{ place.Best_Season or '' }}')"
+                  class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-center font-semibold py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  ℹ️ More Info
+                </button>
+              </div>
             </div>
           </article>
         {% endfor %}
       </div>
     {% else %}
-      <p class="text-center text-gray-600 text-lg mt-16">Sorry, no matching destinations found.</p>
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">😕</div>
+        <p class="text-gray-600 text-xl mb-8">Sorry, no matching destinations found for your preferences.</p>
+        <p class="text-gray-500">Try adjusting your budget, duration, or interests to find more options.</p>
+      </div>
     {% endif %}
 
-    <div class="mt-12 text-center">
+    <div class="mt-16 text-center">
       <a
         href="/"
-        class="inline-block bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-colors"
+        class="inline-flex items-center gap-2 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
       >
-        Back to Home
+        ← Back to Search
       </a>
     </div>
   </div>
+
+  <!-- Modal for more info -->
+  <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="modalTitle" class="text-xl font-bold text-gray-800"></h3>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">✕</button>
+      </div>
+      <div id="modalContent" class="text-gray-600"></div>
+      <button onclick="closeModal()" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function showMoreInfo(name, description, type, season) {
+      document.getElementById('modalTitle').textContent = name;
+      document.getElementById('modalContent').innerHTML = `
+        <p class="mb-2"><strong>Type:</strong> ${type}</p>
+        <p class="mb-2"><strong>Best Season:</strong> ${season}</p>
+        <p class="mb-4"><strong>Description:</strong></p>
+        <p>${description}</p>
+      `;
+      document.getElementById('infoModal').classList.remove('hidden');
+      document.getElementById('infoModal').classList.add('flex');
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').classList.add('hidden');
+      document.getElementById('infoModal').classList.remove('flex');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('infoModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>

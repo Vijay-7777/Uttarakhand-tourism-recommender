@@ -7,69 +7,132 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
     select[multiple] {
-      height: 160px;
+      height: 180px;
       scrollbar-width: thin;
-      scrollbar-color: #34d399 #d1fae5;
+      scrollbar-color: #10b981 #d1fae5;
     }
     select[multiple]::-webkit-scrollbar {
       width: 8px;
     }
     select[multiple]::-webkit-scrollbar-thumb {
-      background-color: #34d399;
+      background: linear-gradient(135deg, #10b981, #059669);
       border-radius: 4px;
+    }
+    select[multiple]::-webkit-scrollbar-track {
+      background: #f0fdf4;
+      border-radius: 4px;
+    }
+    
+    .floating-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #059669, #10b981, #34d399);
+      background-size: 200% 200%;
+      animation: gradient 3s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .input-focus {
+      transition: all 0.3s ease;
+    }
+    
+    .input-focus:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-green-100 via-green-50 to-green-200 min-h-screen flex items-center justify-center p-6">
-  <div class="bg-white rounded-3xl shadow-xl max-w-2xl w-full p-8 sm:p-12">
-    <h1 class="text-4xl font-extrabold text-green-700 mb-8 text-center">
-      Discover Your Ideal Uttarakhand Destination
-    </h1>
+<body class="bg-gradient-to-br from-green-100 via-blue-50 to-green-200 min-h-screen flex items-center justify-center p-4">
+  <!-- Background decorative elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 text-6xl opacity-20 floating-animation">🏔️</div>
+    <div class="absolute top-40 right-20 text-4xl opacity-20 floating-animation" style="animation-delay: -2s;">🌲</div>
+    <div class="absolute bottom-40 left-20 text-5xl opacity-20 floating-animation" style="animation-delay: -4s;">🦅</div>
+    <div class="absolute bottom-20 right-10 text-3xl opacity-20 floating-animation" style="animation-delay: -1s;">🏞️</div>
+  </div>
+
+  <div class="form-container rounded-3xl shadow-2xl max-w-2xl w-full p-8 sm:p-12 relative">
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-extrabold gradient-text mb-4">
+        Discover Uttarakhand
+      </h1>
+      <p class="text-gray-600 text-lg">Find your perfect mountain getaway with AI-powered recommendations</p>
+      <div class="mt-4 text-4xl">🏔️✨</div>
+    </div>
 
     <form action="/recommend" method="POST" class="space-y-8">
       <!-- Interests -->
-      <div>
-        <label for="interest" class="block text-gray-700 font-semibold mb-2">Select Your Interests (Multiple):</label>
+      <div class="relative">
+        <label for="interest" class="block text-gray-700 font-bold mb-3 text-lg">
+          🎯 What interests you? (Select multiple)
+        </label>
         <select
           id="interest"
           name="interest"
           multiple
           required
-          class="w-full border border-green-300 rounded-lg shadow-sm focus:ring-green-400 focus:border-green-500 text-green-800 p-3"
+          class="w-full border-2 border-green-300 rounded-xl shadow-sm focus:ring-2 focus:ring-green-400 focus:border-green-500 text-green-800 p-4 input-focus bg-white/90"
         >
-          <option value="hill station">Hill Station</option>
-          <option value="spiritual">Spiritual</option>
-          <option value="adventure">Adventure</option>
-          <option value="trekking">Trekking</option>
-          <option value="wildlife">Wildlife</option>
-          <option value="ski resort">Ski Resort</option>
-          <option value="nature">Nature</option>
-          <option value="pilgrimage">Pilgrimage</option>
-          <option value="cultural">Cultural</option>
-          <option value="scenic">Scenic</option>
+          <option value="hill station">🏔️ Hill Station</option>
+          <option value="spiritual" selected>🕉️ Spiritual</option>
+          <option value="adventure">🚀 Adventure</option>
+          <option value="trekking">🥾 Trekking</option>
+          <option value="wildlife">🦅 Wildlife</option>
+          <option value="ski resort">⛷️ Ski Resort</option>
+          <option value="nature" selected>🌿 Nature</option>
+          <option value="pilgrimage">🛕 Pilgrimage</option>
+          <option value="cultural">🎭 Cultural</option>
+          <option value="scenic">📸 Scenic</option>
         </select>
-        <p class="text-sm text-gray-500 mt-1">Hold Ctrl (or Cmd on Mac) to select multiple options.</p>
+        <p class="text-sm text-gray-500 mt-2 flex items-center gap-1">
+          💡 Hold <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl</kbd> (or <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Cmd</kbd> on Mac) to select multiple options
+        </p>
       </div>
 
       <!-- Season -->
-      <div>
-        <label for="season" class="block text-gray-700 font-semibold mb-2">Preferred Travel Season:</label>
+      <div class="relative">
+        <label for="season" class="block text-gray-700 font-bold mb-3 text-lg">
+          🌤️ When do you want to travel?
+        </label>
         <select
           id="season"
           name="season"
           required
-          class="w-full border border-green-300 rounded-lg shadow-sm focus:ring-green-400 focus:border-green-500 text-green-800 p-3"
+          class="w-full border-2 border-green-300 rounded-xl shadow-sm focus:ring-2 focus:ring-green-400 focus:border-green-500 text-green-800 p-4 input-focus bg-white/90"
         >
-          <option value="summer">Summer</option>
-          <option value="monsoon">Monsoon</option>
-          <option value="winter">Winter</option>
-          <option value="autumn">Autumn</option>
+          <option value="summer">☀️ Summer (March - June)</option>
+          <option value="monsoon">🌧️ Monsoon (July - September)</option>
+          <option value="winter" selected>❄️ Winter (October - February)</option>
+          <option value="autumn">🍂 Autumn (September - November)</option>
         </select>
       </div>
 
       <!-- Budget -->
-      <div>
-        <label for="budget" class="block text-gray-700 font-semibold mb-2">Budget (₹):</label>
+      <div class="relative">
+        <label for="budget" class="block text-gray-700 font-bold mb-3 text-lg">
+          💰 What's your budget?
+        </label>
         <input
           type="range"
           id="budget"
@@ -78,37 +141,80 @@
           max="50000"
           step="500"
           value="15000"
-          class="w-full accent-green-500"
-          oninput="document.getElementById('budgetValue').textContent = this.value"
+          class="w-full accent-green-500 h-3 rounded-lg appearance-none bg-green-100"
+          oninput="updateBudgetDisplay(this.value)"
         />
-        <p class="text-green-700 font-bold text-center mt-2">₹<span id="budgetValue">15000</span></p>
+        <div class="flex justify-between text-sm text-gray-500 mt-2">
+          <span>₹1,000</span>
+          <span>₹50,000</span>
+        </div>
+        <div class="text-center mt-3">
+          <div class="inline-flex items-center gap-2 bg-green-100 rounded-full px-6 py-3">
+            <span class="text-green-700 font-bold text-xl">₹</span>
+            <span id="budgetValue" class="text-green-800 font-bold text-2xl">15,000</span>
+          </div>
+        </div>
       </div>
 
       <!-- Duration -->
-      <div>
-        <label for="duration" class="block text-gray-700 font-semibold mb-2">Trip Duration (Days):</label>
-        <input
-          type="number"
-          id="duration"
-          name="duration"
-          min="1"
-          max="30"
-          value="5"
-          required
-          class="w-full border border-green-300 rounded-lg shadow-sm focus:ring-green-400 focus:border-green-500 text-green-800 p-3"
-        />
+      <div class="relative">
+        <label for="duration" class="block text-gray-700 font-bold mb-3 text-lg">
+          📅 How many days?
+        </label>
+        <div class="relative">
+          <input
+            type="number"
+            id="duration"
+            name="duration"
+            min="1"
+            max="30"
+            value="5"
+            required
+            class="w-full border-2 border-green-300 rounded-xl shadow-sm focus:ring-2 focus:ring-green-400 focus:border-green-500 text-green-800 p-4 input-focus bg-white/90 text-center text-xl font-bold"
+          />
+          <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-600">
+            days
+          </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-2 text-center">Perfect for short getaways to extended adventures</p>
       </div>
 
       <!-- Submit -->
-      <div class="text-center">
+      <div class="text-center pt-4">
         <button
           type="submit"
-          class="bg-green-600 hover:bg-green-700 transition-colors text-white font-bold px-6 py-3 rounded-xl shadow-md"
+          class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg"
         >
-          Show Recommendations
+          ✨ Find My Perfect Destination ✨
         </button>
       </div>
     </form>
   </div>
+
+  <script>
+    function updateBudgetDisplay(value) {
+      const budgetValue = document.getElementById('budgetValue');
+      budgetValue.textContent = new Intl.NumberFormat('en-IN').format(value);
+    }
+
+    // Add some interactivity
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const inputs = form.querySelectorAll('input, select');
+      
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.classList.add('ring-2', 'ring-green-400');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.classList.remove('ring-2', 'ring-green-400');
+        });
+      });
+      
+      // Initialize budget display
+      updateBudgetDisplay(document.getElementById('budget').value);
+    });
+  </script>
 </body>
 </html>
